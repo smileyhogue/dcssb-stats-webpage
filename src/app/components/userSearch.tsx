@@ -3,7 +3,7 @@ import React, { useState } from "react";
 
 const UserSearch = () => {
   const [query, setQuery] = useState("");
-  const [userData, setUserData] = useState<{ nick: string | null } | null>(null);
+  const [userData, setUserData] = useState<{ nick: string | null, date: string | null } | null>(null);
   const [loading, setLoading] = useState(false);
 
   const fetchUserData = async () => {
@@ -39,7 +39,7 @@ const UserSearch = () => {
     fetchUserData();
   };
 
-  const handleKeyDown = (e) => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       handleSearch();
     }
@@ -60,11 +60,11 @@ const UserSearch = () => {
         Search
       </button>
       {loading && <p>Loading...</p>}
-      {userData && (
+      {userData !== null && (
         <div className="mt-4">
           <h3>User Information</h3>
-          <p>Name: {userData[0].nick}</p>
-          <p>Date: {userData[0].date}</p>
+          <p>Name: {userData.nick}</p>
+          <p>Date: {userData.date }</p>
           {/* Add more user information fields as needed */}
         </div>
       )}
