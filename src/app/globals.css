@@ -50,7 +50,7 @@ main {
 }
 
 .top-kills-card .top-kills-card-content{
-  background: var(--patina);
+  background: var(--ridge);
   color: var(--white);
 }
 
