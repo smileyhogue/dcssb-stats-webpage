@@ -3,25 +3,57 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
+  /* UT System Colors */
+  --primary-orange: #FF8200; /* Tennessee Orange */
+  --primary-gray: #58595B; /* Smoky Mountain Gray */
+  --pebble: #D5D1CB; /* Pebble */
+  --river-pearl: #8A827B; /* River Pearl */
+  --tower: #898B8C; /* Tower */
+  --mockingbird: #222943; /* Mockingbird */
+  --interstate: #788591; /* Interstate */
+  --cedar: #57352A; /* Cedar */
+  --white: #FFFFFF; /* White */
+  --black: #000000; /* Black */
+  --patina: #008693; /* Patina */
+  --ripple: #4C728B; /* Ripple */
+  --forest: #1A4338; /* Forest */
+  --glade: #809B54; /* Glade */
+  --soybean: #D4C74A; /* Soybean */
+  --salamander: #8C4A1D; /* Salamander */
+  --spirit: #C7661E; /* Spirit */
+  --beacon: #F8A838; /* Beacon */
+  --ridge: #3E3A5D; /* Ridge */
+  --iris: #79698E; /* Iris */
+  --ut-knoxville-torch: #E65933; /* UT Knoxville Torch */
+  --ut-chattanooga-gold: #FDB736; /* UT Chattanooga Gold */
+  --ut-southern-red: #C8102E; /* UT Southern Red */
+  --ut-martin-navy: #0B2341; /* UT Martin Navy */
+  --uthsc-green: #115740; /* UTHSC Green */
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-}
+  --primary-background-color: var(--pebble);
+  --primary-text-color: var(--mockingbird);
 
+}
+html {
+  width: 100%;
+  height: 100%;
+}
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  width: 100%;
+  height: 100%;
+}
+
+main {
+  width: 100%;
+  height: 100%;
+  background: var(--pebble);
+}
+
+.top-kills-card .top-kills-card-content{
+  background: var(--patina);
+  color: var(--white);
+}
+
+.rank {
+  color: var(--primary-orange);
 }

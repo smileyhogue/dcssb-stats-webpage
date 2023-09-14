@@ -36,21 +36,16 @@ export default async function Page() {
   }
   const topCountKills = topKills.slice(0, topPlayers);
 
-  // Render the UI with the top 5 kills data.
-  const containerClassName = `container mx-auto p-4 ${process.env.PRIMARY_BACKGROUND_COLOR} ${process.env.TEXT_COLOR}`;
-  const cardContainerClassName = `${process.env.CARD_BACKGROUND_COLOR} p-1 rounded-lg`;
-  const cardTextClassName = `${process.env.CARD_TEXT_COLOR} p-2 rounded-lg`;
-
   return (
-    <main className={containerClassName}>
+    <main>
       {topCountKills.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+        <div className="container mx-auto p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
           {topCountKills.map((kill: TopKillsItem, index: number) => (
-            <div key={index} className={cardContainerClassName}>
-              <div className={cardTextClassName}>
-                <h3 className="text-lg font-semibold mb-2">
-                  Name: {kill.fullNickname}
-                </h3>
+            <div key={index} className="top-kills-card p-1 rounded-md">
+              <div className="top-kills-card-content p-2 rounded-md">
+                <h3 className="rank text-lg font-semibold mb-2">
+                  Rank #{index + 1}: </h3>
+                <h3 className="text-lg font-semibold mb-2"> {kill.fullNickname}</h3>
                 <p className="text-base">Kills: {kill.AAkills}</p>
                 <p className="text-base">Deaths: {kill.deaths}</p>
                 <p className="text-base">KDR: {kill.AAKDR}</p>
