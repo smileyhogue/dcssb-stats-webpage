@@ -29,8 +29,12 @@ export default async function Page() {
   // Sort the top kills data in descending order based on AAkills (most kills first).
   topKills.sort((a, b) => b.AAkills - a.AAkills);
 
-  // Take the top 5 kills for display.
-  const top5Kills = topKills.slice(0, 5);
+  // Take the top kills for display. - default to 5
+  var topPlayers = 5;
+  if (process.env.TOP_PLAYERS) {
+    topPlayers = +process.env.TOP_PLAYERS!;
+  }
+  const topCountKills = topKills.slice(0, topPlayers);
 
   // Render the UI with the top 5 kills data.
   const containerClassName = `container mx-auto p-4 ${process.env.PRIMARY_BACKGROUND_COLOR} ${process.env.TEXT_COLOR}`;
@@ -39,9 +43,9 @@ export default async function Page() {
 
   return (
     <main className={containerClassName}>
-      {top5Kills.length > 0 ? (
+      {topCountKills.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-          {top5Kills.map((kill: TopKillsItem, index: number) => (
+          {topCountKills.map((kill: TopKillsItem, index: number) => (
             <div key={index} className={cardContainerClassName}>
               <div className={cardTextClassName}>
                 <h3 className="text-lg font-semibold mb-2">
