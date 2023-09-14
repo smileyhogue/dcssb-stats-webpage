@@ -6,10 +6,14 @@ type TopKillsItem = {
   AAKDR: number;
 };
 
+interface Props {
+  topKills: TopKillsItem[];
+  numColumns: number;
+}
+
 // fetch data from API endpoint.
 async function getTopKillData() {
-  const apiDomain = process.env.API_DOMAIN;
-  const apiEndpoint = `${apiDomain}/topkills`;
+  const apiEndpoint = `${process.env.API_DOMAIN}/topkills`;
   // Make an HTTP GET request to the specified URL.
   const res = await fetch(apiEndpoint, { next: { revalidate: 120 } });
 
