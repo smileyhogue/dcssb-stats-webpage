@@ -1,10 +1,16 @@
 "use client";
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const UserSearch = () => {
   const [query, setQuery] = useState("");
-  const [userData, setUserData] = useState<{ nick: string | null, date: string | null } | null>(null);
+  const [userData, setUserData] = useState<{
+    nick: string | null;
+    date: string | null;
+  } | null>(null);
   const [loading, setLoading] = useState(false);
+
+  const router = useRouter(); // <-- Use the useRouter hook
 
   const fetchUserData = async () => {
     try {
@@ -16,7 +22,7 @@ const UserSearch = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ nick: query }),
-        next: { revalidate: 1 } 
+        next: { revalidate: 1 },
       });
 
       if (!response.ok) {
@@ -25,6 +31,9 @@ const UserSearch = () => {
 
       const data = await response.json();
       setUserData(data);
+
+      // After successfully fetching user data, navigate to /stats with query params
+      router.push(`/stats?nick=${data.nick}&date=${data.date}`);
     } catch (error) {
       console.error(error);
     } finally {
@@ -46,29 +55,24 @@ const UserSearch = () => {
   };
 
   return (
-    <div className="container mx-auto p-4 text-center">
-      <h2>User Search</h2>
-      <input
-        type="text"
-        placeholder="Enter a username"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        onKeyDown={handleKeyDown}
-        className="mt-2 p-2 border rounded-lg"
-      />
-      <button onClick={handleSearch} className="mt-2 px-4 py-2 bg-primary-orange text-white rounded-lg">
-        Search
-      </button>
-      {loading && <p>Loading...</p>}
-      {userData !== null && (
-        <div className="mt-4">
-          <h3>User Information</h3>
-          <p>Name: {userData.nick}</p>
-          <p>Date: {userData.date }</p>
-          {/* Add more user information fields as needed */}
-        </div>
-      )}
-    </div>
+      <div className="container mx-auto p-4 text-center">
+        <h2>User Search</h2>
+        <input
+          type="text"
+          placeholder="Enter a username"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          onKeyDown={handleKeyDown}
+          className="mt-2 p-2 border rounded-lg"
+        />
+        <button
+          onClick={handleSearch}
+          className="mt-2 px-4 py-2 bg-primary-orange text-white rounded-lg"
+        >
+          Search
+        </button>
+        {loading && <p>Loading...</p>}
+      </div>
   );
 };
 
