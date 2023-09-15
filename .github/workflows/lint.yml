@@ -3,7 +3,6 @@
 name: Lint # name of the action (displayed in the github interface)
 
 on: # event list
-<<<<<<< Updated upstream
     pull_request: # on a pull request to each of these branches
         branches:
           - development
@@ -12,16 +11,6 @@ on: # event list
 
 env: # environment variables (available in any part of the action)
   NODE_VERSION: 18
-=======
-pull_request: # on a pull request to each of these branches
-branches:
-  - development
-  - staging
-  - production
-
-env: # environment variables (available in any part of the action)
-  NODE_VERSION: 16
->>>>>>> Stashed changes
 
 jobs: # list of things to do
   linting:
