@@ -49,7 +49,7 @@ main {
   background: var(--pebble);
 }
 
-.top-kills-card .top-kills-card-content{
+.top-kills-card .top-kills-card-content {
   background: var(--ridge);
   color: var(--white);
 }
