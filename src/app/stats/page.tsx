@@ -51,15 +51,21 @@ export default function Stats() {
   return (
     <main>
       <UserSearch />
-      <div className="container mx-auto p-4">
-        <h1>Stats</h1>
-        <p>User: {nick}</p>
+      <div className="container text-center mx-auto text-2xl font-semibold pt-4">
+        <h1>Stats User: {nick}</h1>
 
         {userStats && (
-          <div className="container mx-auto p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-            <div className="top-kills-card p-1 rounded-md flex">
+          <div className="flex justify-center flex-wrap p-4 items-stretch">
+            {" "}
+            {/* Added items-stretch */}
+            {/* General Stats Card */}
+            <div className="top-kills-card m-2 flex-none flex-grow p-1 rounded-md flex flex-col">
               <div className="top-kills-card-content p-2 rounded-md flex-grow">
-                <h3 className="text-lg font-semibold mb-2">General Stats</h3>
+                {" "}
+                {/* Added flex-grow */}
+                <h3 className="text-lg font-semibold mb-2 rank">
+                  General Stats
+                </h3>
                 <p className="text-base">Deaths: {userStats.deaths}</p>
                 <p className="text-base">AA Kills: {userStats.aakills}</p>
                 <p className="text-base">AA KDR: {userStats.aakdr}</p>
@@ -71,15 +77,20 @@ export default function Stats() {
                 </p>
               </div>
             </div>
-
+            {/* Module-specific Cards */}
             {userStats.killsByModule?.map((item, index) => {
               const kdrItem = userStats.kdrByModule?.find(
                 (kdr) => kdr.module === item.module
               );
               return (
-                <div key={index} className="top-kills-card p-1 rounded-md flex">
+                <div
+                  key={index}
+                  className="top-kills-card m-2 flex-none flex-grow p-1 rounded-md flex flex-col"
+                >
                   <div className="top-kills-card-content p-2 rounded-md flex-grow">
-                    <h3 className="text-lg font-semibold mb-2">
+                    {" "}
+                    {/* Added flex-grow */}
+                    <h3 className="text-lg font-semibold mb-2 rank">
                       {item.module}
                     </h3>
                     <p className="text-base">Kills: {item.kills}</p>

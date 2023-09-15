@@ -36,7 +36,7 @@ export default async function TopPlayers() {
         <div className="container mx-auto p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
           {topCountKills.map((kill: TopKillsItem, index: number) => (
             <div key={index} className="top-kills-card p-1 rounded-md">
-              <div className="top-kills-card-content p-2 rounded-md">
+              <div className="top-kills-card-content content-center text-center p-2 rounded-md">
                 <h3 className="rank text-lg font-semibold mb-2">
                   Rank #{index + 1}:{" "}
                 </h3>
