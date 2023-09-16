@@ -9,13 +9,13 @@ const UserSearch = () => {
     date: string | null;
   } | null>(null);
   const [loading, setLoading] = useState(false);
+  const [noUser, setNoUser] = useState(false);
 
   const router = useRouter(); // <-- Use the useRouter hook
 
   const fetchUserData = async () => {
     try {
       setLoading(true);
-
       const response = await fetch("/api/searchUser", {
         method: "POST",
         headers: {
@@ -26,13 +26,15 @@ const UserSearch = () => {
       });
 
       if (!response.ok) {
+        setNoUser(true);
         throw new Error("Failed to fetch data");
       }
-
       const data = await response.json();
       setUserData(data);
-
-      // After successfully fetching user data, navigate to /stats with query params
+      if ( data.nick == null || data.date == null) {
+       setNoUser(true);
+      }
+      //After successfully fetching user data, navigate to /stats with query params
       router.push(`/stats?nick=${data.nick}&date=${data.date}`);
     } catch (error) {
       console.error(error);
@@ -72,6 +74,7 @@ const UserSearch = () => {
           Search
         </button>
         {loading && <p>Loading...</p>}
+        {noUser && <p>No user found</p>}
       </div>
   );
 };

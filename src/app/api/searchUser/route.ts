@@ -11,7 +11,6 @@ export async function POST(request: Request, response: Response) {
       body: formData,
       next: { revalidate: 1 } 
     });
-
     if (!response.ok) {
       throw new Error("Failed to fetch data");
     }
@@ -22,7 +21,7 @@ export async function POST(request: Request, response: Response) {
     console.error(error);
     return NextResponse.json(
       { error: "Internal Server Error" },
-      { status: 500 }
+      { status: 501 }
     );
   }
 }
