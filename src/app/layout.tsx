@@ -7,6 +7,14 @@ const inter = Inter({ subsets: ['latin'] })
 export const metadata: Metadata = {
   title: 'Smoking Aces Stats',
   description: 'Smoking Aces Stats',
+  openGraph: {
+    images: [
+      {
+        url: 'https://stats.twothreexray.com/smokey.png',
+        alt: 'Smoking Aces Stats',
+      },
+    ],
+  },
 }
 
 export default function RootLayout({
