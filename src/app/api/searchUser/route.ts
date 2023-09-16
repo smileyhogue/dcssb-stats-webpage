@@ -3,9 +3,8 @@ export async function POST(request: Request, response: Response) {
   try {
     const formData = new FormData();
     const json = await request.json();
-    formData.append("nick", json.nick); // Get the 'nick' value from the request body
+    formData.append("nick", json.nick);
 
-    // Perform your server-side API call here
     const response = await fetch(`${process.env.API_DOMAIN}/getuser`, {
       method: "POST",
       body: formData,

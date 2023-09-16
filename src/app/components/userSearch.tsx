@@ -34,7 +34,6 @@ const UserSearch = () => {
       if ( data.nick == null || data.date == null) {
        setNoUser(true);
       }
-      //After successfully fetching user data, navigate to /stats with query params
       router.push(`/stats?nick=${data.nick}&date=${data.date}`);
     } catch (error) {
       console.error(error);

@@ -1,7 +1,7 @@
 "use client";
 import "../globals.css";
 import { useSearchParams } from "next/navigation";
-import React, { useState, useEffect } from "react"; // <-- Added useEffect
+import React, { useState, useEffect } from "react";
 import UserSearch from "../components/userSearch";
 import NavBar from '../components/navBar'
 
@@ -59,12 +59,9 @@ export default function Stats() {
         {userStats && (
           <div className="flex justify-center flex-wrap p-4 items-stretch">
             {" "}
-            {/* Added items-stretch */}
-            {/* General Stats Card */}
             <div className="top-kills-card m-2 flex-none flex-grow p-1 rounded-md flex flex-col">
               <div className="top-kills-card-content p-2 rounded-md flex-grow">
                 {" "}
-                {/* Added flex-grow */}
                 <h3 className="text-lg font-semibold mb-2 rank">
                   General Stats
                 </h3>
@@ -79,7 +76,6 @@ export default function Stats() {
                 </p>
               </div>
             </div>
-            {/* Module-specific Cards */}
             {userStats.killsByModule?.map((item, index) => {
               const kdrItem = userStats.kdrByModule?.find(
                 (kdr) => kdr.module === item.module
@@ -91,7 +87,6 @@ export default function Stats() {
                 >
                   <div className="top-kills-card-content p-2 rounded-md flex-grow">
                     {" "}
-                    {/* Added flex-grow */}
                     <h3 className="text-lg font-semibold mb-2 rank">
                       {item.module}
                     </h3>

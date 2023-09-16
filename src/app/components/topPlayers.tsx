@@ -1,27 +1,20 @@
-// Define the data item received from the API.
 type TopKillsItem = {
   fullNickname: string;
   AAkills: number;
   deaths: number;
   AAKDR: number;
 };
-// fetch data from API endpoint.
 async function getTopKillData() {
   const apiEndpoint = `${process.env.API_DOMAIN}/topkills`;
-  // Make an HTTP GET request to the specified URL.
   const res = await fetch(apiEndpoint, { next: { revalidate: 120 } });
-  // Check if the response is successful.
   if (!res.ok) {
     throw new Error("Failed to fetch data");
   }
-  // Parse the response body as JSON and return it as a Promise of an array of TopKillsItem.
   return res.json() as Promise<TopKillsItem[]>;
 }
-// Define the main component for rendering the top kills data.
+
 export default async function TopPlayers() {
-  // Fetch the top kills data asynchronously.
   const topKills = await getTopKillData();
-  // Sort the top kills data in descending order based on AAkills (most kills first).
   topKills.sort((a, b) => b.AAkills - a.AAkills);
   // Take the top kills for display. - default to 5
   var topPlayers = 5;
