@@ -3,6 +3,7 @@ import "../globals.css";
 import { useSearchParams } from "next/navigation";
 import React, { useState, useEffect } from "react"; // <-- Added useEffect
 import UserSearch from "../components/userSearch";
+import NavBar from '../components/navBar'
 
 export default function Stats() {
   const [userStats, setUserStats] = useState<{
@@ -50,6 +51,7 @@ export default function Stats() {
 
   return (
     <main>
+      <NavBar />
       <UserSearch />
       <div className="container text-center mx-auto text-2xl font-semibold pt-4">
         <h1>Stats User: {nick}</h1>
