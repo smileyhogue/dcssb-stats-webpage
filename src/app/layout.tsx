@@ -8,12 +8,7 @@ export const metadata: Metadata = {
   title: 'Smoking Aces Stats',
   description: 'Smoking Aces Stats',
   openGraph: {
-    images: [
-      {
-        url: 'https://stats.twothreexray.com/smokey.png',
-        alt: 'Smoking Aces Stats',
-      },
-    ],
+    images: 'https://stats.twothreexray.com/smokey.png'
   },
 }
 
