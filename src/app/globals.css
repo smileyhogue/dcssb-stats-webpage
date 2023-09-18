@@ -50,6 +50,10 @@ main {
   background: var(--pebble);
 }
 
+.nav {
+  background: var(--pebble);
+}
+
 .top-kills-card .top-kills-card-content {
   background: var(--ridge);
   color: var(--white);
