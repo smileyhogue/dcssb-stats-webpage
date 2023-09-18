@@ -4,7 +4,7 @@ import Image from 'next/image';
 
 const NavBar: React.FC = () => {
   return (
-    <nav className="sticky top-0 z-50 nav" style={{ display: 'flex', alignItems: 'center', padding: '1rem', borderBottom: '1px solid #eaeaea' }}>
+    <nav className="sticky top-0 z-50 nav" style={{ display: 'flex', alignItems: 'center', padding: '1rem' }}>
       <Link href="/" passHref>
         <Image src="/smokey.png" alt="Logo" height={50} width={50} />
       </Link>
