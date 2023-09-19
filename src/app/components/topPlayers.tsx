@@ -67,10 +67,10 @@ export default async function TopPlayers() {
                   key={index}
                   className="scribbles top-kills-card p-1 rounded-md"
                 >
-                  <CardHeader className="scribbles-content rank text-lg font-semibold mb-2">
+                  <CardHeader className="scribbles-content rank text-lg font-semibold mb-2 [text-shadow:_1px_2px_10px_rgb(0_0_0_/_80%)]">
                       <CardTitle>Rank #{index + 1}: </CardTitle>
                   </CardHeader>
-                  <CardContent className="scribbles-content top-kills-card-content content-center text-center p-2 rounded-md">
+                  <CardContent className="scribbles-content top-kills-card-content content-center text-center p-2 rounded-md [text-shadow:_1px_2px_10px_rgb(0_0_0_/_80%)]">
                     <h3 className="text-lg font-semibold mb-2">
                       {kill.fullNickname}
                     </h3>
