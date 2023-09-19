@@ -64,6 +64,56 @@
     --input: 217.2 32.6% 17.5%;
     --ring: 212.7 26.8% 83.9%;
   }
+
+  .smoke {
+    background-image: url('/smokey.png');
+    background-size:cover;
+    position:relative;
+  }
+  .smoke:before {
+    content: '';
+    width:100%;
+    height:100%;
+    position:absolute;
+    top:0;
+    left:0;
+    
+    /* adjust overlay colour/transparency here */
+    background:rgba(0,0,0,0.66);
+    
+    /* can blur the background too */
+    backdrop-filter: blur(2px);
+  }
+  .smoke-content {
+    position: relative; /* puts it on top */
+    color: #fff;
+    text-align:center;
+  }
+
+  .scribbles {
+    background-image: url('/scribbles.png');
+    background-size:cover;
+    position:relative;
+  }
+  .scribbles:before {
+    content: '';
+    width:100%;
+    height:100%;
+    position:absolute;
+    top:0;
+    left:0;
+    
+    /* adjust overlay colour/transparency here */
+    background:rgba(0,0,0,0.77);
+    
+    /* can blur the background too */
+    backdrop-filter: blur(2px);
+  }
+  .scribbles-content {
+    position: relative; /* puts it on top */
+    color: #fff;
+    text-align:center;
+  }
 }
  
 @layer base {

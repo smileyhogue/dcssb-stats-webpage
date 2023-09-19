@@ -45,22 +45,32 @@ export default async function TopPlayers() {
               return (
                 <Card
                   key={index}
-                  className="top-kills-card p-1 rounded-md"
-                  style={{ backgroundImage: "/smokey.png" }}
+                  className="smoke top-kills-card p-1 rounded-md"
                 >
-                  <CardHeader className="rank text-lg font-semibold mb-2">
-                    <div className="flex">
-                      <Image
-                        src="/smokey.png"
-                        alt="Logo"
-                        width={30}
-                        height={0}
-                        className=""
-                      />
+                  <CardHeader className="smoke-content rank text-lg font-semibold mb-2">
                       <CardTitle>Rank #{index + 1}: </CardTitle>
-                    </div>
                   </CardHeader>
-                  <CardContent className="top-kills-card-content content-center text-center p-2 rounded-md">
+                  <CardContent className="smoke-content top-kills-card-content content-center text-center p-2 rounded-md">
+                    <h3 className="text-lg font-semibold mb-2">
+                      {kill.fullNickname}
+                    </h3>
+
+                    <p className="text-base">Kills: {kill.AAkills}</p>
+                    <p className="text-base">Deaths: {kill.deaths}</p>
+                    <p className="text-base">KDR: {kill.AAKDR.toFixed(2)}</p>
+                  </CardContent>
+                </Card>
+              );
+            } if (kill.fullNickname === "Angry Balls") {
+              return (
+                <Card
+                  key={index}
+                  className="scribbles top-kills-card p-1 rounded-md"
+                >
+                  <CardHeader className="scribbles-content rank text-lg font-semibold mb-2">
+                      <CardTitle>Rank #{index + 1}: </CardTitle>
+                  </CardHeader>
+                  <CardContent className="scribbles-content top-kills-card-content content-center text-center p-2 rounded-md">
                     <h3 className="text-lg font-semibold mb-2">
                       {kill.fullNickname}
                     </h3>
