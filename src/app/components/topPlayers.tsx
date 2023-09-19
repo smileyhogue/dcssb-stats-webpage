@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import {
   Card,
   CardContent,
@@ -5,7 +7,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/app/components/ui/card"
+} from "@/app/components/ui/card";
 
 type TopKillsItem = {
   fullNickname: string;
@@ -33,25 +35,60 @@ export default async function TopPlayers() {
   const topCountKills = topKills.slice(0, topPlayers);
   return (
     <>
-      <p className="container text-center mx-auto text-2xl font-semibold pt-4">Top Players</p>
+      <p className="container text-center mx-auto text-2xl font-semibold pt-4">
+        Top Players
+      </p>
       {topCountKills.length > 0 ? (
         <div className="container mx-auto p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-          {topCountKills.map((kill: TopKillsItem, index: number) => (
-            <Card key={index} className="top-kills-card p-1 rounded-md">
-              <CardHeader className="rank text-lg font-semibold mb-2">
-                <CardTitle>Rank #{index + 1}:{" "}</CardTitle>
-              </CardHeader>
-              <CardContent className="top-kills-card-content content-center text-center p-2 rounded-md">
-                <h3 className="text-lg font-semibold mb-2">
-                  {" "}
-                  {kill.fullNickname}
-                </h3>
-                <p className="text-base">Kills: {kill.AAkills}</p>
-                <p className="text-base">Deaths: {kill.deaths}</p>
-                <p className="text-base">KDR: {kill.AAKDR.toFixed(2)}</p>
-              </CardContent>
-            </Card>
-          ))}
+          {topCountKills.map((kill: TopKillsItem, index: number) => {
+            if (kill.fullNickname === "SmokeMagic") {
+              return (
+                <Card
+                  key={index}
+                  className="top-kills-card p-1 rounded-md"
+                  style={{ backgroundImage: "/smokey.png" }}
+                >
+                  <CardHeader className="rank text-lg font-semibold mb-2">
+                    <div className="flex">
+                      <Image
+                        src="/smokey.png"
+                        alt="Logo"
+                        width={30}
+                        height={0}
+                        className=""
+                      />
+                      <CardTitle>Rank #{index + 1}: </CardTitle>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="top-kills-card-content content-center text-center p-2 rounded-md">
+                    <h3 className="text-lg font-semibold mb-2">
+                      {kill.fullNickname}
+                    </h3>
+
+                    <p className="text-base">Kills: {kill.AAkills}</p>
+                    <p className="text-base">Deaths: {kill.deaths}</p>
+                    <p className="text-base">KDR: {kill.AAKDR.toFixed(2)}</p>
+                  </CardContent>
+                </Card>
+              );
+            }
+            return (
+              <Card key={index} className="top-kills-card p-1 rounded-md">
+                <CardHeader className="rank text-lg font-semibold mb-2">
+                  <CardTitle>Rank #{index + 1}: </CardTitle>
+                </CardHeader>
+                <CardContent className="top-kills-card-content content-center text-center p-2 rounded-md">
+                  <h3 className="text-lg font-semibold mb-2">
+                    {" "}
+                    {kill.fullNickname}
+                  </h3>
+                  <p className="text-base">Kills: {kill.AAkills}</p>
+                  <p className="text-base">Deaths: {kill.deaths}</p>
+                  <p className="text-base">KDR: {kill.AAKDR.toFixed(2)}</p>
+                </CardContent>
+              </Card>
+            );
+          })}
         </div>
       ) : (
         <p>Loading...</p>
