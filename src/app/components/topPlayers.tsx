@@ -48,7 +48,7 @@ export default async function TopPlayers() {
                 </h3>
                 <p className="text-base">Kills: {kill.AAkills}</p>
                 <p className="text-base">Deaths: {kill.deaths}</p>
-                <p className="text-base">KDR: {kill.AAKDR}</p>
+                <p className="text-base">KDR: {kill.AAKDR.toFixed(2)}</p>
               </CardContent>
             </Card>
           ))}
