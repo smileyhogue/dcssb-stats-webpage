@@ -1,6 +1,8 @@
 "use client";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import { Button } from "@/app/components/ui/button"
+import { Input } from "@/app/components/ui/input"
 
 const UserSearch = () => {
   const [query, setQuery] = useState("");
@@ -56,22 +58,25 @@ const UserSearch = () => {
   };
 
   return (
-      <div className="container mx-auto p-4 text-center">
+      <div className="container content-center text-center">
         <h2>User Search</h2>
-        <input
+        <div className="flex">
+        <Input
           type="text"
           placeholder="Enter a username"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           onKeyDown={handleKeyDown}
-          className="mt-2 p-2 border rounded-lg"
+          className="mt-2 p-2"
         />
-        <button
+        <Button
+          type="submit"
           onClick={handleSearch}
-          className="mt-2 px-4 py-2 bg-primary-orange text-white rounded-lg"
+          className="mt-2 px-4"
         >
           Search
-        </button>
+        </Button>
+        </div>
         {loading && <p>Loading...</p>}
         {noUser && <p>No user found</p>}
       </div>

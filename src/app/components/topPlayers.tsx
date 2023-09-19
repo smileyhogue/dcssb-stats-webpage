@@ -1,3 +1,12 @@
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/app/components/ui/card"
+
 type TopKillsItem = {
   fullNickname: string;
   AAkills: number;
@@ -28,11 +37,11 @@ export default async function TopPlayers() {
       {topCountKills.length > 0 ? (
         <div className="container mx-auto p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
           {topCountKills.map((kill: TopKillsItem, index: number) => (
-            <div key={index} className="top-kills-card p-1 rounded-md">
-              <div className="top-kills-card-content content-center text-center p-2 rounded-md">
-                <h3 className="rank text-lg font-semibold mb-2">
-                  Rank #{index + 1}:{" "}
-                </h3>
+            <Card key={index} className="top-kills-card p-1 rounded-md">
+              <CardHeader className="rank text-lg font-semibold mb-2">
+                <CardTitle>Rank #{index + 1}:{" "}</CardTitle>
+              </CardHeader>
+              <CardContent className="top-kills-card-content content-center text-center p-2 rounded-md">
                 <h3 className="text-lg font-semibold mb-2">
                   {" "}
                   {kill.fullNickname}
@@ -40,8 +49,8 @@ export default async function TopPlayers() {
                 <p className="text-base">Kills: {kill.AAkills}</p>
                 <p className="text-base">Deaths: {kill.deaths}</p>
                 <p className="text-base">KDR: {kill.AAKDR}</p>
-              </div>
-            </div>
+              </CardContent>
+            </Card>
           ))}
         </div>
       ) : (

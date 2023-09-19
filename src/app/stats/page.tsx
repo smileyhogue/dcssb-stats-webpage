@@ -3,7 +3,15 @@ import "../globals.css";
 import { useSearchParams } from "next/navigation";
 import React, { useState, useEffect } from "react";
 import UserSearch from "../components/userSearch";
-import NavBar from '../components/navBar'
+import NavBar from "../components/navBar";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/app/components/ui/card";
 
 export default function Stats() {
   const [userStats, setUserStats] = useState<{
@@ -59,12 +67,11 @@ export default function Stats() {
         {userStats && (
           <div className="flex justify-center flex-wrap p-4 items-stretch">
             {" "}
-            <div className="top-kills-card m-2 flex-none flex-grow p-1 rounded-md flex flex-col">
-              <div className="top-kills-card-content p-2 rounded-md flex-grow">
-                {" "}
-                <h3 className="text-lg font-semibold mb-2 rank">
-                  General Stats
-                </h3>
+            <Card className="top-kills-card m-2 flex-none flex-grow p-1 rounded-md flex flex-col">
+              <CardHeader className="rank text-lg font-semibold mb-2">
+                <CardTitle>General Stats</CardTitle>
+              </CardHeader>
+              <CardContent className="top-kills-card-content p-2 rounded-md flex-grow">
                 <p className="text-base">Deaths: {userStats.deaths}</p>
                 <p className="text-base">AA Kills: {userStats.aakills}</p>
                 <p className="text-base">AA KDR: {userStats.aakdr}</p>
@@ -74,26 +81,26 @@ export default function Stats() {
                 <p className="text-base">
                   Last Session Deaths: {userStats.lastSessionDeaths}
                 </p>
-              </div>
-            </div>
+              </CardContent>
+            </Card>
             {userStats.killsByModule?.map((item, index) => {
               const kdrItem = userStats.kdrByModule?.find(
                 (kdr) => kdr.module === item.module
               );
               return (
-                <div
+                <Card
                   key={index}
                   className="top-kills-card m-2 flex-none flex-grow p-1 rounded-md flex flex-col"
                 >
-                  <div className="top-kills-card-content p-2 rounded-md flex-grow">
-                    {" "}
-                    <h3 className="text-lg font-semibold mb-2 rank">
-                      {item.module}
-                    </h3>
+                  <CardHeader className="rank text-lg font-semibold mb-2">
+                    <CardTitle>{item.module}</CardTitle>
+                  </CardHeader>
+                  <CardContent className="top-kills-card-content p-2 rounded-md flex-grow">
                     <p className="text-base">Kills: {item.kills}</p>
+                    {kdrItem && <p className="text-base">Deaths: {item.kills/kdrItem?.kdr}</p>}
                     <p className="text-base">KDR: {kdrItem?.kdr.toFixed(2)}</p>
-                  </div>
-                </div>
+                  </CardContent>
+                </Card>
               );
             })}
           </div>
