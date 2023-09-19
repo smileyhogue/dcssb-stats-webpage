@@ -1,5 +1,3 @@
-import React from "react";
-
 type UserStatsData = {
   deaths: number;
   aakills: number;
