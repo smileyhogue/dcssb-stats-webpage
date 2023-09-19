@@ -35,7 +35,7 @@ const NavBar: React.FC = () => {
                 rel="noopener noreferrer"
                 target="_blank"
               >
-                Join our Discord
+                Discord
               </Link>
             </Button>
           </NavigationMenuItem>
@@ -47,7 +47,7 @@ const NavBar: React.FC = () => {
                 rel="noopener noreferrer"
                 target="_blank"
               >
-                Tacview Files
+                Tacview
               </Link>
             </Button>
           </NavigationMenuItem>
