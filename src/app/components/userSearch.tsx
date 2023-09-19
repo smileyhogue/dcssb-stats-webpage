@@ -1,8 +1,11 @@
 "use client";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Button } from "@/app/components/ui/button"
-import { Input } from "@/app/components/ui/input"
+import { Button } from "@/app/components/ui/button";
+import { Input } from "@/app/components/ui/input";
+import { useEffect } from "react";
+import { useToast } from "@/app/components/ui/use-toast";
+import { ToastAction } from "@/app/components/ui/toast";
 
 const UserSearch = () => {
   const [query, setQuery] = useState("");
@@ -15,7 +18,20 @@ const UserSearch = () => {
 
   const router = useRouter(); // <-- Use the useRouter hook
 
-  const fetchUserData = async () => {
+  const { toast } = useToast();
+
+  useEffect(() => {
+    if (noUser) {
+      toast({
+        variant: "destructive",
+        title: "No user found",
+        description: `User \"${query}\" does not exist. Please try again.`,
+        action: <ToastAction onClick={handleRefresh} altText="Try again">Try again</ToastAction>,
+      });
+    }
+  }, [noUser, toast]);
+
+  const FetchUserData = async () => {
     try {
       setLoading(true);
       const response = await fetch("/api/searchUser", {
@@ -33,8 +49,9 @@ const UserSearch = () => {
       }
       const data = await response.json();
       setUserData(data);
-      if ( data.nick == null || data.date == null) {
-       setNoUser(true);
+      if (data.nick == null || data.date == null) {
+        setNoUser(true);
+        setQuery("");
       }
       router.push(`/stats?nick=${data.nick}&date=${data.date}`);
     } catch (error) {
@@ -44,11 +61,16 @@ const UserSearch = () => {
     }
   };
 
+  const handleRefresh = () => {
+    setQuery("");
+    setNoUser(false);
+  };
+
   const handleSearch = () => {
     if (query.trim() === "") {
       return;
     }
-    fetchUserData();
+    FetchUserData();
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -56,11 +78,10 @@ const UserSearch = () => {
       handleSearch();
     }
   };
-
   return (
-      <div className="container content-center text-center">
-        <h2>User Search</h2>
-        <div className="flex">
+    <div className="container content-center text-center">
+      <h2>User Search</h2>
+      <div className="flex">
         <Input
           type="text"
           placeholder="Enter a username"
@@ -69,17 +90,13 @@ const UserSearch = () => {
           onKeyDown={handleKeyDown}
           className="mt-2 p-2"
         />
-        <Button
-          type="submit"
-          onClick={handleSearch}
-          className="mt-2 px-4"
-        >
+        <Button type="submit" onClick={handleSearch} className="mt-2 px-4">
           Search
         </Button>
-        </div>
-        {loading && <p>Loading...</p>}
-        {noUser && <p>No user found</p>}
       </div>
+      {loading && <p>Loading...</p>}
+      {noUser && <p>No user found</p>}
+    </div>
   );
 };
 
