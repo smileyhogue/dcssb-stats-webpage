@@ -28,7 +28,12 @@ type TopKillsItem = {
   };
 };
 async function getTopKillData() {
-  const apiEndpoint = `${process.env.APP_URL}/api/topKillsInfo`;
+  let apiEndpoint = "";
+  if (process.env.VERCEL_URL) {
+    apiEndpoint = `https://${process.env.VERCEL_URL}/api/topKillsInfo`;
+  } else {
+    apiEndpoint = `${process.env.APP_URL}/api/topKillsInfo`;
+  }
   const res = await fetch(apiEndpoint, { next: { revalidate: 120 } });
   if (!res.ok) {
     throw new Error("Failed to fetch data");
