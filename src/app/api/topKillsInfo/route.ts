@@ -14,7 +14,13 @@ async function searchUser(nick: string){
 }
 
 async function getStats(nick: string, date: string){
-  const response = await fetch(`${process.env.APP_URL}/api/getStats`, {
+  let apiEndpoint: string;
+  if (process.env.VERCEL_URL) {
+    apiEndpoint = `https://${process.env.VERCEL_URL}/api/getStats`;
+  } else {
+    apiEndpoint = `${process.env.APP_URL}/api/getStats`;
+  }
+  const response = await fetch(apiEndpoint, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -51,3 +57,5 @@ export async function GET(request: Request, response: Response) {
     }
     return NextResponse.json(topKills);
 }
+
+export const dynamic = "force-dynamic";
