@@ -57,3 +57,5 @@ export async function GET(request: Request, response: Response) {
     }
     return NextResponse.json(topKills);
 }
+
+export const dynamic = "force-dynamic";
