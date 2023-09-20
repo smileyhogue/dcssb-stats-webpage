@@ -34,6 +34,7 @@ async function getTopKillData() {
   } else {
     apiEndpoint = `${process.env.APP_URL}/api/topKillsInfo`;
   }
+  console.log(apiEndpoint);
   const res = await fetch(apiEndpoint, { next: { revalidate: 120 } });
   if (!res.ok) {
     throw new Error("Failed to fetch data");
