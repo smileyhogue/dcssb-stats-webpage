@@ -191,7 +191,6 @@ export default async function TopPlayers() {
                   <HoverCardTrigger asChild>
                     <Card
                       key={index}
-                      className={index}
                       className="top-kills-card p-1 rounded-md"
                     >
                       <CardHeader className="rank text-lg font-semibold mb-2">
