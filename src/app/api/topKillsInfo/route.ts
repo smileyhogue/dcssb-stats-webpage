@@ -1,35 +1,44 @@
 import { NextRequest, NextResponse } from "next/server";
 
 async function searchUser(nick: string){
-  const response = await fetch(`${process.env.APP_URL}/api/searchUser`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ nick: nick }),
-    next: { revalidate: 1 },
-  });
-  const data = await response.json();
-  return data;
+  try {
+    const formData = new FormData();
+    formData.append("nick", nick);
+
+    const response = await fetch(`${process.env.API_DOMAIN}/getuser`, {
+      method: "POST",
+      body: formData,
+      next: { revalidate: 1 } 
+    });
+    if (!response.ok) {
+      throw new Error("Failed to fetch data");
+    }
+
+    const data = await response.json();
+    return data[0];
+  } catch (error) {
+    console.error(error);
+    return ;
+  }
 }
 
 async function getStats(nick: string, date: string){
-  let apiEndpoint: string;
-  if (process.env.VERCEL_URL) {
-    apiEndpoint = `https://${process.env.APP_URL}/api/getStats`;
-  } else {
-    apiEndpoint = `${process.env.APP_URL}/api/getStats`;
+  try {
+    const formData = new FormData();
+    formData.append("nick", nick);
+    formData.append("date", date);
+    const response = await fetch(`${process.env.API_DOMAIN}/stats`, {
+      method: "POST",
+      body: formData,
+      next: { revalidate: 1 },
+    });
+
+    const data = await response.json();
+    return data;
+  }catch (error) {
+    console.error(error);
+    return;
   }
-  const response = await fetch(apiEndpoint, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ nick: nick, date:date }),
-    next: { revalidate: 1 },
-  });
-  const data = await response.json();
-  return data;
 }
 
 export async function GET(request: Request, response: Response) {
@@ -57,5 +66,3 @@ export async function GET(request: Request, response: Response) {
     }
     return NextResponse.json(topKills);
 }
-
-export const dynamic = "force-dynamic";
