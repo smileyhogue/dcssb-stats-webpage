@@ -29,13 +29,11 @@ async function searchForUser(nick: string){
         const userJSON = JSON.parse(JSON.stringify(userData));
         topPlayersDate.push(userJSON[0].date);
       };
-      console.log("topPlayersDate: ", topPlayersDate);
       for (let index = 0; index < topPlayers.length; index++) {
         const statsData = await getStats(topPlayers[index], topPlayersDate[index]);
         topKills[index].stats = statsData;
       }
       // return topKills as JSON
-      //console.log("topKills: ", topKills);
       return topKills;
   }
 

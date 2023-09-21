@@ -57,12 +57,16 @@ const UserSearch = () => {
       setLoading(true);
       const searchedUser = await searchUser(query);
       const data = await searchedUser;
+      if (data.length === 0) {
+        setNoUser(true);
+        return;
+      }
       const nick = data[0].nick;
       const date = data[0].date;
       if (data[0].nick == null || data[0].date == null) {
         setNoUser(true);
-        handleRefresh();
       }
+      console.log(nick, date);
       router.push(`/stats?nick=${nick}&date=${date}`);
     } catch (error) {
       console.error(error);

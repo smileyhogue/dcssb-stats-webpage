@@ -16,7 +16,6 @@ import { NextRequest } from "next/server";
 export default async function Stats(request: any) {
   // convert request to json
   const query = JSON.parse(JSON.stringify(request));
-  console.log("query: ",query)
   const nick = query.searchParams.nick;
   const date = query.searchParams.date;
   if (!nick || !date) return;
