@@ -1,32 +1,13 @@
-async function searchUser(nick: string){
-    const response = await fetch(`${process.env.APP_URL}/api/searchUser`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ nick: nick }),
-      next: { revalidate: 1 },
-    });
-    const data = await response.json();
+import { searchUser } from "./searchUser";
+import { GetStats } from "./getStats";
+
+async function searchForUser(nick: string){
+    const data = await searchUser(nick);
     return data;
   }
   
   async function getStats(nick: string, date: string){
-    let apiEndpoint: string;
-    if (process.env.VERCEL_URL) {
-      apiEndpoint = `https://${process.env.VERCEL_URL}/api/getStats`;
-    } else {
-      apiEndpoint = `${process.env.APP_URL}/api/getStats`;
-    }
-    const response = await fetch(apiEndpoint, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ nick: nick, date:date }),
-      next: { revalidate: 1 },
-    });
-    const data = await response.json();
+    const data = await GetStats(nick, date);
     return data;
   }
 
@@ -43,17 +24,18 @@ async function searchUser(nick: string){
       topKills.forEach((element: any) => {
         topPlayers.push(element.fullNickname);
       });
-  
       for (let index = 0; index < topPlayers.length; index++) {
-        const userData = await searchUser(topPlayers[index]);
+        const userData = await searchForUser(topPlayers[index]);
         const userJSON = JSON.parse(JSON.stringify(userData));
-        topPlayersDate.push(userJSON.date);
+        topPlayersDate.push(userJSON[0].date);
       };
+      console.log("topPlayersDate: ", topPlayersDate);
       for (let index = 0; index < topPlayers.length; index++) {
         const statsData = await getStats(topPlayers[index], topPlayersDate[index]);
         topKills[index].stats = statsData;
       }
       // return topKills as JSON
+      //console.log("topKills: ", topKills);
       return topKills;
   }
 

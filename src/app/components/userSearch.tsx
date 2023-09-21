@@ -12,6 +12,7 @@ import {
   AlertDescription,
   AlertTitle,
 } from "@/app/components/ui/alert";
+import { searchUser } from "@/app/utils/searchUser";
 
 const UserSearch = () => {
   const [query, setQuery] = useState("");
@@ -54,25 +55,15 @@ const UserSearch = () => {
   const FetchUserData = async () => {
     try {
       setLoading(true);
-      const response = await fetch("/api/searchUser", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ nick: query }),
-        next: { revalidate: 1 },
-      });
-
-      if (!response.ok) {
-        setNoUser(true);
-        throw new Error("Failed to fetch data");
-      }
-      const data = await response.json();
-      if (data.nick == null || data.date == null) {
+      const searchedUser = await searchUser(query);
+      const data = await searchedUser;
+      const nick = data[0].nick;
+      const date = data[0].date;
+      if (data[0].nick == null || data[0].date == null) {
         setNoUser(true);
         handleRefresh();
       }
-      router.push(`/stats?nick=${data.nick}&date=${data.date}`);
+      router.push(`/stats?nick=${nick}&date=${date}`);
     } catch (error) {
       console.error(error);
     } finally {

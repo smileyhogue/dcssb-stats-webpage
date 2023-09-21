@@ -1,7 +1,6 @@
-"use client";
 import "../globals.css";
-import { useSearchParams } from "next/navigation";
-import React, { useState, useEffect } from "react";
+import { GetStats } from "@/app/utils/getStats";
+import React from "react";
 import UserSearch from "../components/userSearch";
 import NavBar from "../components/navBar";
 import {
@@ -12,50 +11,16 @@ import {
   CardHeader,
   CardTitle,
 } from "@/app/components/ui/card";
+import { NextRequest } from "next/server";
 
-export default function Stats() {
-  const [userStats, setUserStats] = useState<{
-    deaths?: number;
-    aakills?: number;
-    aakdr?: number;
-    lastSessionKills?: number;
-    lastSessionDeaths?: number;
-    killsByModule?: { module: string; kills: number }[];
-    kdrByModule?: { module: string; kdr: number }[];
-  } | null>(null);
-
-  const searchParams = useSearchParams();
-  const nick = searchParams.get("nick");
-  const date = searchParams.get("date");
-
-  useEffect(() => {
-    if (!nick || !date) return;
-
-    const fetchUserData = async () => {
-      const body = JSON.stringify({ nick: nick, date: date });
-      const response = await fetch("/api/getStats", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: body,
-        next: { revalidate: 1 },
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to fetch data");
-      }
-
-      const data = await response.json();
-      setUserStats(data);
-    };
-
-    fetchUserData();
-  }, [nick, date]);
-
-  if (!nick || !date) {
-    return <div>Loading...</div>;
-  }
+export default async function Stats(request: any) {
+  // convert request to json
+  const query = JSON.parse(JSON.stringify(request));
+  console.log("query: ",query)
+  const nick = query.searchParams.nick;
+  const date = query.searchParams.date;
+  if (!nick || !date) return;
+  const data = await GetStats(nick, date);
 
   return (
     <main>
@@ -64,7 +29,7 @@ export default function Stats() {
       <div className="container text-center mx-auto text-2xl font-semibold pt-4">
         <h1>Stats User: {nick}</h1>
 
-        {userStats && (
+        {data && (
           <div className="flex justify-center flex-wrap p-4 items-stretch">
             {" "}
             <Card className="top-kills-card m-2 flex-none flex-grow p-1 rounded-md flex flex-col">
@@ -72,20 +37,20 @@ export default function Stats() {
                 <CardTitle>General Stats</CardTitle>
               </CardHeader>
               <CardContent className="top-kills-card-content p-2 rounded-md flex-grow">
-                <p className="text-base">Deaths: {userStats.deaths}</p>
-                <p className="text-base">AA Kills: {userStats.aakills}</p>
-                <p className="text-base">AA KDR: {userStats.aakdr}</p>
+                <p className="text-base">Deaths: {data.deaths}</p>
+                <p className="text-base">AA Kills: {data.aakills}</p>
+                <p className="text-base">AA KDR: {data.aakdr}</p>
                 <p className="text-base">
-                  Last Session Kills: {userStats.lastSessionKills}
+                  Last Session Kills: {data.lastSessionKills}
                 </p>
                 <p className="text-base">
-                  Last Session Deaths: {userStats.lastSessionDeaths}
+                  Last Session Deaths: {data.lastSessionDeaths}
                 </p>
               </CardContent>
             </Card>
-            {userStats.killsByModule?.map((item, index) => {
-              const kdrItem = userStats.kdrByModule?.find(
-                (kdr) => kdr.module === item.module
+            {data.killsByModule?.map((item: any, index: any) => {
+              const kdrItem = data.kdrByModule?.find(
+                (kdr: any) => kdr.module === item.module
               );
               return (
                 <Card
