@@ -51,6 +51,12 @@ const NavBar: React.FC = () => {
               </Link>
             </Button>
           </NavigationMenuItem>
+
+          <NavigationMenuItem>
+            <Button className="px-3">
+              <Link href="/servers">Our Servers</Link>
+            </Button>
+          </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>
 
