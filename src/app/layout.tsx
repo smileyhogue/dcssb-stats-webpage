@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { ThemeProvider } from "@/app/components/theme-provider";
 import { Toaster } from "@/app/components/ui/toaster";
+import NavBar from "./components/navBar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,6 +26,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
+      <NavBar />
         <main>
           <ThemeProvider
             attribute="class"

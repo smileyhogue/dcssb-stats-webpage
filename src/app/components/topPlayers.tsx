@@ -1,4 +1,4 @@
-import TopPlayerCard from "./ui/topPlayerCard";
+import TopPlayerCard from "./topPlayerCard";
 import { getTopKillData } from "@/app/utils/topPlayers";
 
 type TopKillsItem = {
