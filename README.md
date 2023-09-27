@@ -9,8 +9,8 @@ This is a project designed to work together with [DCS Server Bot](https://github
 - Player search
 - Player statistics
 - List your servers on the `/servers` page
-    - This required modification of the current RestAPI. To get this page to work, you will need to modify `/plugins/restapi/commands.py` to add the new endpoint.
-        - You can find the modified `commands.py` file in my [forked repository](https://github.com/smileyhogue/DCSServerBot/blob/master/plugins/restapi/commands.py)
+  - This required modification of the current RestAPI. To get this page to work, you will need to modify `/plugins/restapi/commands.py` to add the new endpoint.
+    - You can find the modified `commands.py` file in my [forked repository](https://github.com/smileyhogue/DCSServerBot/blob/master/plugins/restapi/commands.py)
 
 ### TODO
 
