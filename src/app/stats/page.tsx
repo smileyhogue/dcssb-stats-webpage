@@ -2,16 +2,12 @@ import "../globals.css";
 import { GetStats } from "@/app/utils/getStats";
 import React from "react";
 import UserSearch from "../components/userSearch";
-import NavBar from "../components/navBar";
 import {
   Card,
   CardContent,
-  CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/app/components/ui/card";
-import { NextRequest } from "next/server";
 
 export default async function Stats(request: any) {
   // convert request to json

@@ -1,5 +1,4 @@
 import ServerCard from '@/app/components/serverCard';
-import NavBar from '@/app/components/navBar';
 
 export default async function Servers() {
     const response = await fetch("https://dcssbapi.twothreexray.com/servers", { next: { revalidate: 120 } });
