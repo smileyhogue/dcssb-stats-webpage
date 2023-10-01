@@ -1,13 +1,32 @@
-import "../globals.css";
-import { GetStats } from "@/app/utils/getStats";
-import React from "react";
-import UserSearch from "../components/userSearch";
+import '../globals.css';
+import { GetStats } from '@/app/utils/getStats';
+import React from 'react';
+import UserSearch from '../components/userSearch';
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
-} from "@/app/components/ui/card";
+} from '@/app/components/ui/card';
+interface Stats {
+  deaths: number;
+  aakills: number;
+  aakdr: number;
+  lastSessionKills: number;
+  lastSessionDeaths: number;
+  killsByModule: [
+    {
+      module: string;
+      kills: number;
+    }
+  ];
+  kdrByModule: [
+    {
+      module: string;
+      kdr: number;
+    }
+  ];
+}
 
 export default async function Stats(request: any) {
   // convert request to json
@@ -15,7 +34,7 @@ export default async function Stats(request: any) {
   const nick = query.searchParams.nick;
   const date = query.searchParams.date;
   if (!nick || !date) return;
-  const data = await GetStats(nick, date);
+  const data = (await GetStats(nick, date)) as Stats;
 
   return (
     <main>
@@ -25,7 +44,7 @@ export default async function Stats(request: any) {
 
         {data && (
           <div className="flex justify-center flex-wrap p-4 items-stretch">
-            {" "}
+            {' '}
             <Card className="top-kills-card m-2 flex-none flex-grow p-1 rounded-md flex flex-col">
               <CardHeader className="rank text-lg font-semibold mb-2">
                 <CardTitle>General Stats</CardTitle>
@@ -56,7 +75,11 @@ export default async function Stats(request: any) {
                   </CardHeader>
                   <CardContent className="top-kills-card-content p-2 rounded-md flex-grow">
                     <p className="text-base">Kills: {item.kills}</p>
-                    {kdrItem && <p className="text-base">Deaths: {item.kills/kdrItem?.kdr}</p>}
+                    {kdrItem && (
+                      <p className="text-base">
+                        Deaths: {item.kills / kdrItem?.kdr}
+                      </p>
+                    )}
                     <p className="text-base">KDR: {kdrItem?.kdr.toFixed(2)}</p>
                   </CardContent>
                 </Card>

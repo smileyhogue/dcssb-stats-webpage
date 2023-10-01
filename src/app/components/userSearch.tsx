@@ -1,21 +1,22 @@
-"use client";
-import React, { useState } from "react";
-import { useRouter } from "next/navigation";
-import { Button } from "@/app/components/ui/button";
-import { Input } from "@/app/components/ui/input";
-import { useEffect } from "react";
-import { useToast } from "@/app/components/ui/use-toast";
-import { ToastAction } from "@/app/components/ui/toast";
-import { Terminal} from "lucide-react"
-import {
-  Alert,
-  AlertDescription,
-  AlertTitle,
-} from "@/app/components/ui/alert";
-import { searchUser } from "@/app/utils/searchUser";
+'use client';
+import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { Button } from '@/app/components/ui/button';
+import { Input } from '@/app/components/ui/input';
+import { useEffect } from 'react';
+import { useToast } from '@/app/components/ui/use-toast';
+import { ToastAction } from '@/app/components/ui/toast';
+import { Terminal } from 'lucide-react';
+import { Alert, AlertDescription, AlertTitle } from '@/app/components/ui/alert';
+import { searchUser } from '@/app/utils/searchUser';
+
+interface UserSearch {
+  nick: string;
+  date: string;
+}
 
 const UserSearch = () => {
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState('');
   const [loading, setLoading] = useState(false);
   const [noUser, setNoUser] = useState(false);
   const [noSearch, setnoSearch] = useState(false);
@@ -27,8 +28,8 @@ const UserSearch = () => {
   useEffect(() => {
     if (noSearch) {
       toast({
-        variant: "destructive",
-        title: "No search query",
+        variant: 'destructive',
+        title: 'No search query',
         description: `Please enter a username to search for.`,
         action: (
           <ToastAction onClick={handleRefresh} altText="Try again">
@@ -40,8 +41,8 @@ const UserSearch = () => {
 
     if (noUser) {
       toast({
-        variant: "destructive",
-        title: "No user found",
+        variant: 'destructive',
+        title: 'No user found',
         description: `User \"${query}\" does not exist. Please try again.`,
         action: (
           <ToastAction onClick={handleRefresh} altText="Try again">
@@ -56,7 +57,7 @@ const UserSearch = () => {
     try {
       setLoading(true);
       const searchedUser = await searchUser(query);
-      const data = await searchedUser;
+      const data = (await searchedUser) as UserSearch[];
       if (data.length === 0) {
         setNoUser(true);
         return;
@@ -76,14 +77,14 @@ const UserSearch = () => {
   };
 
   const handleRefresh = () => {
-    setQuery("");
+    setQuery('');
     setNoUser(false);
     setnoSearch(false);
   };
 
   const handleSearch = () => {
     setNoUser(false);
-    if (query.trim() === "") {
+    if (query.trim() === '') {
       setnoSearch(true);
       return;
     }
@@ -92,7 +93,7 @@ const UserSearch = () => {
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
+    if (e.key === 'Enter') {
       handleSearch();
     }
   };
