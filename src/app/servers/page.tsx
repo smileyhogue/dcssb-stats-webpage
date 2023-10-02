@@ -5,6 +5,7 @@ export default async function Servers() {
     const servers = await response.json();
     return (
       <>
+          <NavBar />
           <h1 className="text-2xl font-bold">Servers</h1>
             {servers.map((server: any, index: number) => (
                 <ServerCard key={index} data={server}/>
