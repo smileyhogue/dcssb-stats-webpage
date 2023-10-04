@@ -14,7 +14,8 @@ async function getStats(
   return data;
 }
 
-async function getTopKillData(): Promise<object> {
+async function getTopKillData() {
+  // TODO: What kind of type goes here? I tried : Promise<Array<object>> but it causes an error in topPlayers.tsx
   const apiEndpoint = `${process.env.API_DOMAIN}/topkills`;
   const res = await fetch(apiEndpoint, { next: { revalidate: 120 } });
   if (!res.ok) {
