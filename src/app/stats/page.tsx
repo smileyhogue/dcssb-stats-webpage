@@ -27,6 +27,7 @@ interface Stats {
     }
   ];
 }
+import NavBar from '../components/navBar';
 
 export default async function Stats(request: any) {
   // convert request to json
@@ -38,6 +39,7 @@ export default async function Stats(request: any) {
 
   return (
     <main>
+      <NavBar />
       <UserSearch />
       <div className="container text-center mx-auto text-2xl font-semibold pt-4">
         <h1>Stats User: {nick}</h1>
