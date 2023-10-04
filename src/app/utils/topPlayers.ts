@@ -36,7 +36,6 @@ async function getTopKillData(): Promise<object> {
     const statsData = await getStats(topPlayers[index], topPlayersDate[index]);
     topKills[index].stats = statsData;
   }
-  // return topKills as JSON
   return topKills;
 }
 
