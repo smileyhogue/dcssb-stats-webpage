@@ -15,6 +15,7 @@ This is a project designed to work together with [DCS Server Bot](https://github
 ### TODO
 
 - Dynamic NavBar configurable in a config file
+- Better styling
 
 ## Getting Started
 
