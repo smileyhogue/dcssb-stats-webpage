@@ -1,6 +1,7 @@
 import TopPlayers from './components/topPlayers';
 import UserSearch from './components/userSearch';
 import NavBar from './components/navBar';
+import { Suspense } from 'react';
 
 export default async function Page() {
   return (
@@ -8,7 +9,9 @@ export default async function Page() {
       <NavBar />
       <main className="relative">
         <UserSearch />
-        <TopPlayers />
+        <Suspense fallback={<p>Loading feed...</p>}>
+          <TopPlayers />
+        </Suspense>
       </main>
     </>
   );
