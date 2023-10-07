@@ -1,3 +1,4 @@
+// TODO: persistent state for servers button
 'use client';
 import Link from 'next/link';
 import React from 'react';
