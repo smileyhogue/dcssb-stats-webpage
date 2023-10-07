@@ -17,7 +17,7 @@ type TopKillsItem = {
   };
 };
 
-export default async function TopPlayers() {
+async function TopPlayers() {
   const topKills = await getTopKillData();
   topKills.sort((a: any, b: any) => b.AAkills - a.AAkills);
   // Take the top kills for display. - default to 5
@@ -43,3 +43,5 @@ export default async function TopPlayers() {
     </>
   );
 }
+
+export default TopPlayers;
