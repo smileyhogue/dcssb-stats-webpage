@@ -1,24 +1,32 @@
-"use client";
-import Link from "next/link";
-import React from "react";
-import Image from "next/image";
-import { Button } from "@/app/components/ui/button";
-import { Moon, Sun, Monitor } from "lucide-react";
-import { useTheme } from "next-themes";
+// TODO: persistent state for servers button
+'use client';
+import Link from 'next/link';
+import React from 'react';
+import Image from 'next/image';
+import { Button } from '@/app/components/ui/button';
+import { Moon, Sun, Monitor } from 'lucide-react';
+import { useTheme } from 'next-themes';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/app/components/ui/dropdown-menu";
+} from '@/app/components/ui/dropdown-menu';
 import {
   NavigationMenu,
   NavigationMenuItem,
   NavigationMenuList,
-} from "@/app/components/ui/navigation-menu";
+} from '@/app/components/ui/navigation-menu';
+import CheckServersEndpoint from '@/app/utils/checkServersAPI';
 
 const NavBar: React.FC = () => {
   const { setTheme } = useTheme();
+  // create useEffect to check if endpoint is live
+  const [endpointIsLive, setEndpointIsLive] = React.useState(false);
+  React.useEffect(() => {
+    CheckServersEndpoint().then((res) => setEndpointIsLive(res));
+  }, []);
+
   return (
     <nav className="flex-no-wrap relative flex w-full items-center justify-between">
       <NavigationMenu className="p-4">
@@ -52,11 +60,14 @@ const NavBar: React.FC = () => {
             </Button>
           </NavigationMenuItem>
 
-          <NavigationMenuItem>
-            <Button className="px-3">
-              <Link href="/servers">Our Servers</Link>
-            </Button>
-          </NavigationMenuItem>
+          {/* Show Servers if API is up */}
+          {endpointIsLive && (
+            <NavigationMenuItem>
+              <Button className="px-3">
+                <Link href="/servers">Servers</Link>
+              </Button>
+            </NavigationMenuItem>
+          )}
         </NavigationMenuList>
       </NavigationMenu>
 
@@ -70,13 +81,13 @@ const NavBar: React.FC = () => {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuItem onClick={() => setTheme("light")}>
+            <DropdownMenuItem onClick={() => setTheme('light')}>
               <Sun /> &nbsp; Light
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => setTheme("dark")}>
+            <DropdownMenuItem onClick={() => setTheme('dark')}>
               <Moon /> &nbsp; Dark
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => setTheme("system")}>
+            <DropdownMenuItem onClick={() => setTheme('system')}>
               <Monitor /> &nbsp; System
             </DropdownMenuItem>
           </DropdownMenuContent>

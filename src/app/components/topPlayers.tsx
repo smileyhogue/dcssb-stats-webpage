@@ -1,5 +1,5 @@
-import TopPlayerCard from "./topPlayerCard";
-import { getTopKillData } from "@/app/utils/topPlayers";
+import TopPlayerCard from './topPlayerCard';
+import { getTopKillData } from '@/app/utils/topPlayers';
 
 type TopKillsItem = {
   fullNickname: string;
