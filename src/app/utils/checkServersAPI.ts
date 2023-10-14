@@ -3,7 +3,8 @@ import { revalidateTag } from 'next/cache';
 
 export default async function CheckServersEndpoint(): Promise<boolean> {
   const response = await fetch('https://dcssbapi.twothreexray.com/servers', {
-    next: { tags: ['serverEndpoint'], revalidate: 120 },
+    cache: 'force-cache',
+    next: { tags: ['serverEndpoint'], revalidate: 43200 },
   });
   if (response.ok) {
     revalidateTag('serverEndpoint');
