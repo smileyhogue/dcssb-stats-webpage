@@ -20,7 +20,8 @@ async function getTopKillData() {
   // TODO: What kind of type goes here? I tried : Promise<Array<object>> but it causes an error in topPlayers.tsx
   const apiEndpoint = `${process.env.API_DOMAIN}/topkills`;
   const res = await fetch(apiEndpoint, {
-    next: { tags: ['topPlayers'], revalidate: 120 },
+    cache: 'force-cache',
+    next: { tags: ['topPlayers'], revalidate: 3600 },
   });
   if (!res.ok) {
     throw new Error('Failed to fetch data');
