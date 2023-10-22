@@ -22,7 +22,7 @@ import CheckServersEndpoint from '@/app/utils/checkServersAPI';
 const NavBar: React.FC = () => {
   const { setTheme } = useTheme();
   // create useEffect to check if endpoint is live
-  const [endpointIsLive, setEndpointIsLive] = React.useState(false);
+  const [endpointIsLive, setEndpointIsLive] = React.useState(true);
   React.useEffect(() => {
     CheckServersEndpoint().then((res) => setEndpointIsLive(res));
   }, []);
